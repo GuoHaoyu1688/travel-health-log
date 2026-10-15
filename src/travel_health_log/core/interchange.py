@@ -15,6 +15,8 @@ import yaml
 
 from .common import METRICS, LogError, canonical, day, utc_now
 
+CSV_FIELD_LIMIT = 20 * 1024 * 1024
+
 TABLES = [
     "entries",
     "days",
@@ -116,6 +118,7 @@ class InterchangeMixin:
                 return self.restore(payload)
             rows = payload.get("entries") if isinstance(payload, dict) else payload
         else:
+            csv.field_size_limit(CSV_FIELD_LIMIT)
             with source.open(encoding="utf-8-sig", newline="") as file:
                 rows = list(csv.DictReader(file))
             if rows and set(rows[0]) == {"entity", "payload"}:
@@ -167,15 +170,20 @@ class InterchangeMixin:
 
     def import_trips(self, path: str) -> dict:
         source = Path(path)
-        if source.stat().st_size > 20 * 1024 * 1024:
+        if source.stat().st_size > CSV_FIELD_LIMIT:
             raise LogError("IMPORT_TOO_LARGE", "Trip CSV exceeds 20 MiB")
-        with source.open(encoding="utf-8-sig", newline="") as file:
-            rows = list(csv.DictReader(file))
-        if rows and set(rows[0]) == {"entity", "payload"}:
-            rows = [json.loads(row["payload"]) for row in rows if row["entity"] == "trips"]
+        # Native expense archives can contain large embedded receipt fields.
+        csv.field_size_limit(CSV_FIELD_LIMIT)
         days = set()
-        with self.transaction():
-            for row in rows:
+        trips = 0
+        with source.open(encoding="utf-8-sig", newline="") as file, self.transaction():
+            reader = csv.DictReader(file)
+            native = set(reader.fieldnames or []) == {"entity", "payload"}
+            for row in reader:
+                if native:
+                    if row["entity"] != "trips":
+                        continue
+                    row = json.loads(row["payload"])
                 start = datetime.fromisoformat(row["start_at"])
                 end = datetime.fromisoformat(row["end_at"])
                 zone = ZoneInfo(self.config["timezone"])
@@ -193,8 +201,9 @@ class InterchangeMixin:
                     self.set_day(current.isoformat(), status, row["destination"])
                     days.add(current.isoformat())
                     current += timedelta(days=1)
+                trips += 1
         return {
-            "trips": len(rows),
+            "trips": trips,
             "marked_days": len(days),
             "rule": "Departure and return dates are transit; intermediate dates are trip.",
         }

@@ -5,7 +5,7 @@
   "ruff": "passed",
   "javascript_syntax": "passed",
   "pytest": {
-    "passed": 35,
+    "passed": 37,
     "coverage_percent": 92,
     "dependency_warnings": [
       "Starlette test client warns that its httpx backend is deprecated; all tests pass."
@@ -29,7 +29,19 @@
     "actual_mcp_stdio_tools": 5,
     "archive_csv_json_roundtrip": true,
     "rolling_mean_independent_of_display_window": true,
-    "database_and_sidecar_overwrite_protection": true
+    "database_and_sidecar_overwrite_protection": true,
+    "large_non_trip_fields_skipped_without_json_decode": true,
+    "actual_expense_native_archive": {
+      "entities": 55,
+      "trips": 3,
+      "marked_days": 10,
+      "evidence": "docs/expense-trip-integration.json"
+    },
+    "csv_limits": {
+      "field_mib": 20,
+      "trip_file_mib": 20,
+      "ordinary_file_mib": 100
+    }
   },
   "browser": {
     "offline_reload_and_lost_ack_replay": "docs/offline-sync-verification.json",

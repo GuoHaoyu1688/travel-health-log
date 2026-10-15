@@ -1,0 +1,60 @@
+{
+  "source": "expense-claim-helper native CSV export of fictional data/root-final",
+  "source_entities": 55,
+  "source_bytes": 1502853,
+  "largest_payload_characters": 327965,
+  "trip_entities": 3,
+  "marked_days": 10,
+  "contexts": [
+    {
+      "date": "2026-01-01",
+      "status": "transit",
+      "city_code": "CITY-B"
+    },
+    {
+      "date": "2026-01-02",
+      "status": "trip",
+      "city_code": "CITY-B"
+    },
+    {
+      "date": "2026-01-03",
+      "status": "trip",
+      "city_code": "CITY-B"
+    },
+    {
+      "date": "2026-01-04",
+      "status": "transit",
+      "city_code": "CITY-B"
+    },
+    {
+      "date": "2026-01-05",
+      "status": "transit",
+      "city_code": "CITY-C"
+    },
+    {
+      "date": "2026-01-06",
+      "status": "trip",
+      "city_code": "CITY-C"
+    },
+    {
+      "date": "2026-01-07",
+      "status": "transit",
+      "city_code": "CITY-C"
+    },
+    {
+      "date": "2026-01-08",
+      "status": "transit",
+      "city_code": "CITY-D"
+    },
+    {
+      "date": "2026-01-09",
+      "status": "trip",
+      "city_code": "CITY-D"
+    },
+    {
+      "date": "2026-01-10",
+      "status": "transit",
+      "city_code": "CITY-D"
+    }
+  ]
+}

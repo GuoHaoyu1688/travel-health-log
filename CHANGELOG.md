@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 — 2026-10-15
+
+- Support receipt-heavy native expense CSV imports with bounded fields and streaming trip selection.
+
 ## 0.1.0
 
 - Added local long-form health records, travel contexts, user-defined habits, recorded medication plans, follow-up reminders, and descriptive comparisons.

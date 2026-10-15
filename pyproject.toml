@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
 name = "travel-health-log"
-version = "0.1.0"
+version = "0.1.1"
 description = "Private offline health and habit records for frequent travelers"
 requires-python = ">=3.11"
 license = "MIT"

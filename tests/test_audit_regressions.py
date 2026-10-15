@@ -1,5 +1,6 @@
 """Focused regressions from the independent acceptance review."""
 
+import csv
 import json
 import os
 
@@ -78,3 +79,47 @@ def test_report_cannot_overwrite_database(store, capsys):
     result = json.loads(capsys.readouterr().out)
     assert result["error"]["code"] == "PROTECTED_PATH"
     assert store.records()[0]["value"] == 7
+
+
+def test_trip_import_streams_past_large_non_trip_payloads(store, tmp_path):
+    source = tmp_path / "expense-archive.csv"
+    trip = {
+        "start_at": "2026-10-10T08:00:00+08:00",
+        "end_at": "2026-10-12T18:00:00+08:00",
+        "destination": "C01",
+    }
+    with source.open("w", encoding="utf-8-sig", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=["entity", "payload"])
+        writer.writeheader()
+        # Intentionally invalid JSON proves irrelevant receipt payloads are not decoded.
+        writer.writerow({"entity": "receipt_files", "payload": "x" * 200000})
+        writer.writerow({"entity": "trips", "payload": json.dumps(trip)})
+        writer.writerow({"entity": "receipts", "payload": "y" * 200000})
+    previous = csv.field_size_limit(131072)
+    try:
+        result = store.import_trips(str(source))
+        assert csv.field_size_limit() == 20 * 1024 * 1024
+    finally:
+        csv.field_size_limit(previous)
+    assert result["trips"] == 1
+    assert result["marked_days"] == 3
+    assert [dict(row) for row in store.db.execute("SELECT date,status,city_code FROM days")] == [
+        {"date": "2026-10-10", "status": "transit", "city_code": "C01"},
+        {"date": "2026-10-11", "status": "trip", "city_code": "C01"},
+        {"date": "2026-10-12", "status": "transit", "city_code": "C01"},
+    ]
+    assert store.import_trips(str(source))["marked_days"] == 3
+    assert store.db.execute("SELECT COUNT(*) FROM days").fetchone()[0] == 3
+
+
+def test_streamed_trip_import_rolls_back_before_later_invalid_trip(store, tmp_path):
+    source = tmp_path / "invalid-trips.csv"
+    source.write_text(
+        "start_at,end_at,destination\n"
+        "2026-10-10T08:00:00,2026-10-12T18:00:00,C01\n"
+        "2026-10-15T08:00:00,2026-10-14T18:00:00,C02\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(LogError, match="duration"):
+        store.import_trips(str(source))
+    assert store.db.execute("SELECT COUNT(*) FROM days").fetchone()[0] == 0
