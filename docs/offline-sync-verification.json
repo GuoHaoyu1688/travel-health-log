@@ -1,0 +1,18 @@
+{
+  "offline_page_reload": true,
+  "service_worker_controlled": true,
+  "offline_queued_events": 1,
+  "queue_survived_reload": true,
+  "response_dropped_after_server_commit": true,
+  "server_events_before_retry": 1,
+  "server_events_after_retry": 1,
+  "pending_after_retry": 0,
+  "saved_metrics": {
+    "sleep": "7.5",
+    "steps": "8200"
+  },
+  "expected_network_errors_during_fault_injection": 4,
+  "offline_next_day_default": "2026-10-16",
+  "offline_next_day_habit_button": "Check in",
+  "offline_next_day_pending_events": 0
+}

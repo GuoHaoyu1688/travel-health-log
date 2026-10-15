@@ -1,0 +1,175 @@
+[
+  {
+    "name": "log_metrics",
+    "title": null,
+    "description": "Write metrics, replacing the manual values for that date.",
+    "inputSchema": {
+      "properties": {
+        "date": {
+          "title": "Date",
+          "type": "string"
+        },
+        "metrics": {
+          "additionalProperties": true,
+          "title": "Metrics",
+          "type": "object"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "date",
+        "metrics"
+      ],
+      "title": "log_metricsArguments",
+      "type": "object"
+    },
+    "outputSchema": null,
+    "icons": null,
+    "annotations": null,
+    "meta": null,
+    "execution": null
+  },
+  {
+    "name": "get_stats",
+    "title": null,
+    "description": "Read descriptive trends and adult BP range labels; never a diagnosis.",
+    "inputSchema": {
+      "properties": {
+        "days": {
+          "default": 30,
+          "title": "Days",
+          "type": "integer"
+        },
+        "as_of": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As Of"
+        }
+      },
+      "title": "get_statsArguments",
+      "type": "object"
+    },
+    "outputSchema": null,
+    "icons": null,
+    "annotations": null,
+    "meta": null,
+    "execution": null
+  },
+  {
+    "name": "compare_home_trip",
+    "title": null,
+    "description": "Read context means and sample counts; associations do not establish causation.",
+    "inputSchema": {
+      "properties": {
+        "days": {
+          "default": 30,
+          "title": "Days",
+          "type": "integer"
+        },
+        "as_of": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As Of"
+        }
+      },
+      "title": "compare_home_tripArguments",
+      "type": "object"
+    },
+    "outputSchema": null,
+    "icons": null,
+    "annotations": null,
+    "meta": null,
+    "execution": null
+  },
+  {
+    "name": "list_due",
+    "title": null,
+    "description": "Read previously entered schedules; no advice about starting or changing medications.",
+    "inputSchema": {
+      "properties": {
+        "as_of": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "As Of"
+        },
+        "at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "At"
+        }
+      },
+      "title": "list_dueArguments",
+      "type": "object"
+    },
+    "outputSchema": null,
+    "icons": null,
+    "annotations": null,
+    "meta": null,
+    "execution": null
+  },
+  {
+    "name": "check_habit",
+    "title": null,
+    "description": "Write a habit check-in, replacing its completion flag for the selected day.",
+    "inputSchema": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "date": {
+          "title": "Date",
+          "type": "string"
+        },
+        "done": {
+          "default": true,
+          "title": "Done",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "date"
+      ],
+      "title": "check_habitArguments",
+      "type": "object"
+    },
+    "outputSchema": null,
+    "icons": null,
+    "annotations": null,
+    "meta": null,
+    "execution": null
+  }
+]

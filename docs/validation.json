@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-15",
+  "platform": "macOS arm64",
+  "python": "3.12.13",
+  "ruff": "passed",
+  "javascript_syntax": "passed",
+  "pytest": {
+    "passed": 35,
+    "coverage_percent": 92,
+    "dependency_warnings": [
+      "Starlette test client warns that its httpx backend is deprecated; all tests pass."
+    ]
+  },
+  "acceptance": {
+    "fictional_days": 90,
+    "home_days": 30,
+    "trip_days": 30,
+    "transit_days": 30,
+    "home_mean_sleep": 8,
+    "trip_mean_sleep": 6,
+    "home_mean_steps": 9000,
+    "trip_mean_steps": 6000,
+    "apple_xml_supported_records": 7,
+    "apple_xml_ignored_records": 2,
+    "apple_sleep_hours": 7,
+    "apple_selected_steps": 940,
+    "apple_weight_kg": 72.574779,
+    "dst_sleep_hours": 3,
+    "actual_mcp_stdio_tools": 5,
+    "archive_csv_json_roundtrip": true,
+    "rolling_mean_independent_of_display_window": true,
+    "database_and_sidecar_overwrite_protection": true
+  },
+  "browser": {
+    "offline_reload_and_lost_ack_replay": "docs/offline-sync-verification.json",
+    "desktop": [
+      1280,
+      900
+    ],
+    "mobile": [
+      390,
+      844
+    ],
+    "mobile_document_width": 390,
+    "weekly_markdown_download": "docs/example-weekly-report.md",
+    "offline_calendar_rollover": true
+  },
+  "sources_checked": [
+    "https://www.heart.org/en/health-topics/high-blood-pressure/blood-pressure-explained",
+    "https://developer.apple.com/documentation/healthkit/hkcategoryvaluesleepanalysis"
+  ],
+  "limitations": [
+    "Descriptive journal only; no diagnosis or treatment",
+    "One fixed calendar timezone per library",
+    "Apple subset and explicit aggregation conventions differ from Health app summaries",
+    "Unsynced browser events are outside server backups",
+    "Private permissions do not encrypt files",
+    "No authentication or push delivery",
+    "Phone PWA requires a trusted HTTPS local origin"
+  ]
+}

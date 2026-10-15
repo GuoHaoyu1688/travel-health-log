@@ -1,0 +1,14 @@
+{
+  "records": 10000,
+  "elapsed_seconds": 0.5858,
+  "peak_python_bytes": 191380,
+  "result": {
+    "warnings": [],
+    "processed": 10000,
+    "inserted": 10000,
+    "duplicates": 0,
+    "ignored": 0,
+    "timezone": "Asia/Shanghai",
+    "source_policy": "Manual and imported daily values first; preferred Apple source next, otherwise maximum daily device value; devices are never summed together."
+  }
+}

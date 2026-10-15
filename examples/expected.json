@@ -1,0 +1,30 @@
+{
+  "start": "2026-07-18",
+  "end": "2026-10-15",
+  "days": 90,
+  "contexts": {
+    "home": {
+      "n": 30,
+      "sleep": 8,
+      "steps": 9000,
+      "alcohol": 0
+    },
+    "trip": {
+      "n": 30,
+      "sleep": 6,
+      "steps": 6000,
+      "alcohol": 1
+    },
+    "transit": {
+      "n": 30,
+      "sleep": 5,
+      "steps": 3000,
+      "alcohol": 0
+    }
+  },
+  "trip_minus_home": {
+    "sleep": -2,
+    "steps": -3000,
+    "alcohol": 1
+  }
+}
